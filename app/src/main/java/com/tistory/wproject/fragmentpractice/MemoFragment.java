@@ -44,7 +44,7 @@ public class MemoFragment extends Fragment {
         input.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                memoFragmentListener.onMemoFragmentListener(editText);
+                memoFragmentListener.onMemoFragmentListener(input);
             }
         });
 

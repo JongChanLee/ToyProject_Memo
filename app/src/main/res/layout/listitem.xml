@@ -14,15 +14,5 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/delete_bt"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:background="#ff0008"
-        android:text="삭제"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
 
 </LinearLayout>

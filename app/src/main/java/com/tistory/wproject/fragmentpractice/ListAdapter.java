@@ -1,13 +1,11 @@
 package com.tistory.wproject.fragmentpractice;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 어댑터 클래스 정의
@@ -17,10 +15,9 @@ import java.util.List;
 public class ListAdapter extends BaseAdapter {
     private Context mContext;
 
-    private List<String> mItems = new ArrayList<String>();
+    private ArrayList<MemoItem> mItems = new ArrayList<MemoItem>();
 
     public ListAdapter(Context context) {
-        Log.d("memo", "어뎁터 생성자 들어옴");
         this.mContext = context;
     }
 
@@ -34,9 +31,11 @@ public class ListAdapter extends BaseAdapter {
     public Object getItem(int position) {
         return mItems.get(position);
     }
-
-    public void addItem(String memo) {
-        mItems.add(memo);
+    public void addItem(ArrayList<MemoItem> list){
+        this.mItems = list;
+    }
+    public void addItem(MemoItem item) {
+        mItems.add(0, item);
     }
 
     @Override
@@ -47,9 +46,8 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("memo", "getView안으로 들어옴");
         itemVIew vIew = new itemVIew(mContext);
-        vIew.setText1(mItems.get(position));
+        vIew.setText1(mItems.get(position).getMemo());
         return vIew;
     }
 }
