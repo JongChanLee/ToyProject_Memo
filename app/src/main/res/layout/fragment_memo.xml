@@ -5,7 +5,7 @@
     android:layout_margin="40dp"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background="#88aabbcc">
+    android:background="#ffaabbcc">
 
     <EditText
         android:id="@+id/input_memo"

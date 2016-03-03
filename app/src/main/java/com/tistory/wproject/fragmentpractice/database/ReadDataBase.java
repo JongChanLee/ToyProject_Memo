@@ -54,4 +54,8 @@ public class ReadDataBase {
         }
         return id;
     }
+
+    public void deleteAll(String tablename){
+        db.delete(tablename, null, null);
+    }
 }

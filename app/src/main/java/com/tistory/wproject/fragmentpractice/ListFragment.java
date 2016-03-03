@@ -1,9 +1,6 @@
 package com.tistory.wproject.fragmentpractice;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,15 +38,14 @@ public class ListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "일반클릭", Toast.LENGTH_SHORT).show();
+                mListener.onItemClicked(view);
             }
         });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Dialog dialog = createDialogBox(view);
-                dialog.show();
+                mListener.onItemLongClicked(view);
                 return true;
             }
         });
@@ -59,6 +54,7 @@ public class ListFragment extends Fragment {
 
     public void memoAdd(ArrayList<MemoItem> list) {
         adapter.addItem(list);
+        adapter.notifyDataSetChanged();
     }
 
     public void memoAdd(MemoItem item) {
@@ -66,27 +62,18 @@ public class ListFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private AlertDialog createDialogBox(final View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setTitle("메모 삭제");
-        builder.setMessage("메모를 삭제하시겠습니까?");
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mListener = (onItemClicked) context;
+    }
 
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+    onItemClicked mListener;
 
-            }
-        });
+    public interface onItemClicked {
+        public void onItemClicked(View view);
 
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        return dialog;
+        public void onItemLongClicked(View view);
     }
 }
